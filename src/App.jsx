@@ -1,4 +1,4 @@
-// App com página principal e seleção de respostas - Neurotrading
+// App com pontuação e feedback final - Neurotrading
 
 import { useState } from 'react'
 
@@ -34,17 +34,28 @@ export default function App() {
   const [etapa, setEtapa] = useState(0)
   const [respostaSelecionada, setRespostaSelecionada] = useState(null)
   const [mostrarResposta, setMostrarResposta] = useState(false)
+  const [acertos, setAcertos] = useState(0)
 
   const fraseAtual = frases[etapa]
 
   function verificarResposta() {
     setMostrarResposta(true)
+    if (respostaSelecionada === fraseAtual.resposta) {
+      setAcertos(acertos + 1)
+    }
   }
 
   function proximaFrase() {
     setRespostaSelecionada(null)
     setMostrarResposta(false)
     setEtapa(etapa + 1)
+  }
+
+  function feedbackFinal() {
+    if (acertos === frases.length) return "Excelente! Seu sistema de tomada de decisão está afiado."
+    if (acertos === 0) return "Você respondeu por impulso em todas. Hora de treinar mais o controle inibitório."
+    if (acertos === 1) return "Você acertou 1. Preste mais atenção nos seus gatilhos emocionais."
+    return "Você está no caminho certo. Continue treinando."
   }
 
   if (!iniciado) {
@@ -107,7 +118,8 @@ export default function App() {
       ) : (
         <div className="bg-white p-6 rounded-xl shadow">
           <h2 className="text-2xl font-bold mb-4">Fim do Jogo</h2>
-          <p className="text-lg">Parabéns por completar o treino de leitura preditiva!</p>
+          <p className="text-lg mb-2">Você acertou {acertos} de {frases.length} perguntas.</p>
+          <p className="text-md italic">{feedbackFinal()}</p>
         </div>
       )}
     </div>
