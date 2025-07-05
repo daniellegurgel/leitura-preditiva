@@ -1,4 +1,4 @@
-// App com pontuação e feedback final - Neurotrading
+// App como scanner de viés emocional - Neurotrading
 
 import { useState } from 'react'
 
@@ -6,26 +6,32 @@ const frases = [
   {
     id: 1,
     inicio: "O candle de reversão apareceu exatamente onde ele...",
-    opcoes: ["entrou", "esperava", "ficou", "travou"],
-    resposta: "entrou",
-    viés: "Viés de Confirmação",
-    explicacao: "Você associou o candle com o ponto de entrada, buscando confirmação da decisão anterior."
+    opcoes: [
+      { texto: "entrou", vies: "Viés de Confirmação" },
+      { texto: "esperava", vies: "Viés de Otimismo" },
+      { texto: "ficou", vies: "Viés de Aversão à Perda" },
+      { texto: "travou", vies: "Paralisia Decisória" }
+    ]
   },
   {
     id: 2,
     inicio: "Mesmo com o preço contra, ele não saiu da operação porque...",
-    opcoes: ["acreditava", "já tinha perdido muito", "confiava", "tinha esperança"],
-    resposta: "já tinha perdido muito",
-    viés: "Aversão à Perda",
-    explicacao: "Persistir na operação para evitar realizar uma perda já consolidada."
+    opcoes: [
+      { texto: "acreditava", vies: "Viés de Confirmação" },
+      { texto: "já tinha perdido muito", vies: "Aversão à Perda" },
+      { texto: "confiava", vies: "Viés de Otimismo" },
+      { texto: "tinha esperança", vies: "Falsa Expectativa" }
+    ]
   },
   {
     id: 3,
     inicio: "O mercado rompeu o topo anterior, e ele pensou...",
-    opcoes: ["não posso perder", "vai disparar", "eu sabia", "vou vender"],
-    resposta: "não posso perder",
-    viés: "Medo de Ficar de Fora (FOMO)",
-    explicacao: "O impulso de entrar com medo de perder uma oportunidade."
+    opcoes: [
+      { texto: "não posso perder", vies: "FOMO" },
+      { texto: "vai disparar", vies: "Viés de Otimismo" },
+      { texto: "eu sabia", vies: "Viés de Confirmação" },
+      { texto: "vou vender", vies: "Viés de Aversão ao Sucesso" }
+    ]
   }
 ]
 
@@ -34,15 +40,13 @@ export default function App() {
   const [etapa, setEtapa] = useState(0)
   const [respostaSelecionada, setRespostaSelecionada] = useState(null)
   const [mostrarResposta, setMostrarResposta] = useState(false)
-  const [acertos, setAcertos] = useState(0)
+  const [respostas, setRespostas] = useState([])
 
   const fraseAtual = frases[etapa]
 
   function verificarResposta() {
     setMostrarResposta(true)
-    if (respostaSelecionada === fraseAtual.resposta) {
-      setAcertos(acertos + 1)
-    }
+    setRespostas([...respostas, respostaSelecionada])
   }
 
   function proximaFrase() {
@@ -51,18 +55,23 @@ export default function App() {
     setEtapa(etapa + 1)
   }
 
-  function feedbackFinal() {
-    if (acertos === frases.length) return "Excelente! Seu sistema de tomada de decisão está afiado."
-    if (acertos === 0) return "Você respondeu por impulso em todas. Hora de treinar mais o controle inibitório."
-    if (acertos === 1) return "Você acertou 1. Preste mais atenção nos seus gatilhos emocionais."
-    return "Você está no caminho certo. Continue treinando."
+  function gerarResumo() {
+    const contagem = {}
+    respostas.forEach((resp) => {
+      if (!contagem[resp.vies]) contagem[resp.vies] = 0
+      contagem[resp.vies]++
+    })
+    const ordenado = Object.entries(contagem).sort((a, b) => b[1] - a[1])
+    return ordenado.map(([vies, qtd], i) => (
+      <p key={i}><strong>{vies}:</strong> {qtd} ocorrência(s)</p>
+    ))
   }
 
   if (!iniciado) {
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
         <h1 className="text-4xl font-bold mb-4">Neurotrading Intensive</h1>
-        <p className="text-lg mb-6">Treinamento de Leitura Preditiva para Traders</p>
+        <p className="text-lg mb-6">Scanner de Viés Emocional para Traders</p>
         <button
           className="bg-blue-600 text-white px-6 py-3 rounded text-lg"
           onClick={() => setIniciado(true)}
@@ -85,13 +94,13 @@ export default function App() {
                 <input
                   type="radio"
                   name="resposta"
-                  value={opcao}
+                  value={opcao.texto}
                   checked={respostaSelecionada === opcao}
                   onChange={() => setRespostaSelecionada(opcao)}
                   disabled={mostrarResposta}
                   className="mr-2"
                 />
-                {opcao}
+                {opcao.texto}
               </label>
             ))}
           </div>
@@ -101,14 +110,11 @@ export default function App() {
               className="bg-blue-600 text-white px-4 py-2 rounded mt-4"
               disabled={!respostaSelecionada}
             >
-              Ver Resposta
+              Analisar Viés
             </button>
           ) : (
             <div className="space-y-2 mt-4">
-              <p><strong>Resposta correta:</strong> {fraseAtual.resposta}</p>
-              <p><strong>Sua resposta:</strong> {respostaSelecionada}</p>
-              <p><strong>Viés identificado:</strong> {fraseAtual.viés}</p>
-              <p className="italic text-sm">{fraseAtual.explicacao}</p>
+              <p><strong>Você demonstrou:</strong> {respostaSelecionada.vies}</p>
               <button onClick={proximaFrase} className="bg-green-600 text-white px-4 py-2 rounded">
                 Próxima Frase
               </button>
@@ -116,12 +122,4 @@ export default function App() {
           )}
         </div>
       ) : (
-        <div className="bg-white p-6 rounded-xl shadow">
-          <h2 className="text-2xl font-bold mb-4">Fim do Jogo</h2>
-          <p className="text-lg mb-2">Você acertou {acertos} de {frases.length} perguntas.</p>
-          <p className="text-md italic">{feedbackFinal()}</p>
-        </div>
-      )}
-    </div>
-  )
-}
+        <div className="bg-white p-6 rounded-x
