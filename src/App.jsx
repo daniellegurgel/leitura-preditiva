@@ -122,4 +122,12 @@ export default function App() {
           )}
         </div>
       ) : (
-        <div className="bg-white p-6 rounded-x
+        <div className="bg-white p-6 rounded-xl shadow space-y-4">
+          <h2 className="text-2xl font-bold mb-4">Análise Final</h2>
+          <p className="text-lg mb-2">Veja os vieses mais acionados por você:</p>
+          {gerarResumo()}
+        </div>
+      )}
+    </div>
+  )
+}
