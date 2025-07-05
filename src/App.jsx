@@ -1,9 +1,7 @@
-// App Neurotrading com visual aprimorado, 25 frases, barra de progresso e resultado final sem mostrar o viés até o fim
-
-import { useState } from 'react'
+import { useState } from 'react';
 
 const frases = [
-   { id: 1, inicio: "O candle de reversão apareceu exatamente onde ele...", opcoes: [ { texto: "entrou", vies: "Viés de Confirmação" }, { texto: "estava torcendo", vies: "Otimismo Ilusório" }, { texto: "hesitou", vies: "Aversão à Perda" }, { texto: "pulou a entrada de ontem", vies: "Viés de Recência" } ] },
+  { id: 1, inicio: "O candle de reversão apareceu exatamente onde ele...", opcoes: [ { texto: "entrou", vies: "Viés de Confirmação" }, { texto: "estava torcendo", vies: "Otimismo Ilusório" }, { texto: "hesitou", vies: "Aversão à Perda" }, { texto: "pulou a entrada de ontem", vies: "Viés de Recência" } ] },
   { id: 2, inicio: "Mesmo com o preço contra, ele não saiu da operação porque...", opcoes: [ { texto: "já tinha perdido muito", vies: "Aversão à Perda" }, { texto: "acreditava que ia voltar", vies: "Viés de Confirmação" }, { texto: "não quis perder a chance", vies: "FOMO" }, { texto: "ontem aconteceu igual e voltou", vies: "Viés de Recência" } ] },
   { id: 3, inicio: "O mercado rompeu o topo anterior e ele pensou...", opcoes: [ { texto: "agora vai disparar!", vies: "Otimismo Ilusório" }, { texto: "já vi isso antes", vies: "Viés de Retrospectiva" }, { texto: "não posso ficar de fora", vies: "FOMO" }, { texto: "eu sabia", vies: "Excesso de Confiança" } ] },
   { id: 4, inicio: "Mesmo com sinais contrários, ele manteve a operação porque...", opcoes: [ { texto: "queria provar que estava certo", vies: "Viés de Confirmação" }, { texto: "já estava no prejuízo", vies: "Aversão à Perda" }, { texto: "achava que tinha mais chance de dar certo", vies: "Otimismo Ilusório" }, { texto: "fez isso no dia anterior e funcionou", vies: "Viés de Recência" } ] },
@@ -68,11 +66,11 @@ export default function App() {
 
   if (!iniciado) {
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mb-4">Neurotrading Intensive</h1>
-        <p className="text-lg mb-6">Treinamento de Leitura Preditiva para Traders</p>
+      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center px-4 text-center">
+        <h1 className="text-4xl font-bold mb-4 text-blue-800">Neurotrading Intensive</h1>
+        <p className="text-lg mb-6 text-gray-700">Treinamento de Leitura Preditiva para Traders</p>
         <button
-          className="bg-blue-600 text-white px-6 py-3 rounded text-lg"
+          className="bg-blue-600 text-white px-6 py-3 rounded text-lg hover:bg-blue-700 transition"
           onClick={() => setIniciado(true)}
         >
           Começar
@@ -84,29 +82,29 @@ export default function App() {
   if (etapa >= total) {
     const viesMaisFrequente = calcularViesMaisFrequente();
     return (
-      <div className="min-h-screen bg-green-50 flex items-center justify-center">
-        <div className="bg-white p-6 rounded-xl shadow text-center">
-          <h2 className="text-2xl font-bold mb-4">Fim do Jogo</h2>
+      <div className="min-h-screen bg-green-50 flex items-center justify-center px-4">
+        <div className="bg-white p-6 rounded-xl shadow text-center max-w-md w-full">
+          <h2 className="text-2xl font-bold mb-4 text-green-700">Fim do Teste</h2>
           <p className="text-lg mb-2">Você completou o treino de leitura preditiva.</p>
-          <p className="text-lg font-semibold">Viés mais recorrente: {viesMaisFrequente}</p>
+          <p className="text-lg font-semibold">Viés mais recorrente: <span className="text-green-900">{viesMaisFrequente}</span></p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
+    <div className="min-h-screen bg-white flex items-center justify-center px-4">
       <div className="bg-gray-100 p-6 rounded-xl shadow max-w-xl w-full">
         <div className="mb-4">
-          <div className="text-sm mb-1">Frase {etapa + 1} de {total}</div>
+          <div className="text-sm mb-1 text-gray-600">Frase {etapa + 1} de {total}</div>
           <div className="h-2 bg-gray-300 rounded-full overflow-hidden">
             <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${((etapa + 1) / total) * 100}%` }} />
           </div>
         </div>
-        <p className="text-lg mb-4">{fraseAtual.inicio}</p>
+        <p className="text-lg font-medium mb-4">{fraseAtual.inicio}</p>
         <div className="space-y-2">
           {fraseAtual.opcoes.map((opcao, index) => (
-            <label key={index} className="block">
+            <label key={index} className="block bg-white px-4 py-2 rounded border cursor-pointer hover:bg-blue-50">
               <input
                 type="radio"
                 name="resposta"
@@ -121,125 +119,7 @@ export default function App() {
         </div>
         <button
           onClick={confirmarResposta}
-          className="bg-green-600 text-white px-4 py-2 ro// App Neurotrading com visual aprimorado, 25 frases, barra de progresso e resultado final sem mostrar o viés até o fim
-
-import { useState } from 'react'
-
-const frases = [
-  { id: 1, inicio: "O candle de reversão apareceu exatamente onde ele...", opcoes: [ { texto: "entrou", vies: "Viés de Confirmação" }, { texto: "estava torcendo", vies: "Otimismo Ilusório" }, { texto: "hesitou", vies: "Aversão à Perda" }, { texto: "pulou a entrada de ontem", vies: "Viés de Recência" } ] },
-  { id: 2, inicio: "Mesmo com o preço contra, ele não saiu da operação porque...", opcoes: [ { texto: "já tinha perdido muito", vies: "Aversão à Perda" }, { texto: "acreditava que ia voltar", vies: "Viés de Confirmação" }, { texto: "não quis perder a chance", vies: "FOMO" }, { texto: "ontem aconteceu igual e voltou", vies: "Viés de Recência" } ] },
-  { id: 3, inicio: "O mercado rompeu o topo anterior e ele pensou...", opcoes: [ { texto: "agora vai disparar!", vies: "Otimismo Ilusório" }, { texto: "já vi isso antes", vies: "Viés de Retrospectiva" }, { texto: "não posso ficar de fora", vies: "FOMO" }, { texto: "eu sabia", vies: "Excesso de Confiança" } ] },
-  { id: 4, inicio: "Mesmo com sinais contrários, ele manteve a operação porque...", opcoes: [ { texto: "queria provar que estava certo", vies: "Viés de Confirmação" }, { texto: "já estava no prejuízo", vies: "Aversão à Perda" }, { texto: "achava que tinha mais chance de dar certo", vies: "Otimismo Ilusório" }, { texto: "fez isso no dia anterior e funcionou", vies: "Viés de Recência" } ] },
-  { id: 5, inicio: "Ele decidiu encerrar a operação quando...", opcoes: [ { texto: "chegou no valor que ele tinha em mente", vies: "Efeito de Ancoragem" }, { texto: "lembrou da última vez que perdeu tudo", vies: "Viés de Retrospectiva" }, { texto: "a maioria no grupo também saiu", vies: "FOMO" }, { texto: "o medo de entregar o lucro bateu", vies: "Aversão à Perda" } ] },
-  { id: 6, inicio: "Ele aumentou a posição porque...", opcoes: [ { texto: "já tinha ido bem antes com isso", vies: "Viés de Retrospectiva" }, { texto: "acreditava ainda mais no trade", vies: "Viés de Confirmação" }, { texto: "tinha certeza que subiria", vies: "Excesso de Confiança" }, { texto: "não queria perder a alta", vies: "FOMO" } ] },
-  { id: 7, inicio: "Na hora de montar o stop, ele...", opcoes: [ { texto: "usou o preço anterior como base", vies: "Efeito de Ancoragem" }, { texto: "lembrou do último stop que tomou", vies: "Viés de Retrospectiva" }, { texto: "ajustou para ficar mais confortável", vies: "Aversão à Perda" }, { texto: "deixou sem porque confiava muito", vies: "Excesso de Confiança" } ] },
-  { id: 8, inicio: "Ele ficou em dúvida sobre entrar porque...", opcoes: [ { texto: "viu alguém no grupo discordar", vies: "FOMO" }, { texto: "tinha dado errado semana passada", vies: "Viés de Recência" }, { texto: "não queria errar de novo", vies: "Aversão à Perda" }, { texto: "sentiu que estava exagerando", vies: "Viés de Confirmação" } ] },
-  { id: 9, inicio: "Após um bom lucro, ele...", opcoes: [ { texto: "aumentou a mão confiante", vies: "Excesso de Confiança" }, { texto: "entrou de novo para não ficar de fora", vies: "FOMO" }, { texto: "evitou operar para não devolver", vies: "Aversão à Perda" }, { texto: "repetiu a entrada anterior", vies: "Viés de Recência" } ] },
-  { id: 10, inicio: "Ele justificou a entrada dizendo que...", opcoes: [ { texto: "estava igual à última vez que deu certo", vies: "Viés de Retrospectiva" }, { texto: "o preço confirmava tudo", vies: "Viés de Confirmação" }, { texto: "estava muito otimista", vies: "Otimismo Ilusório" }, { texto: "não queria perder a chance", vies: "FOMO" } ] },
-  // As frases de 11 a 25 devem ser adicionadas aqui (ver etapa anterior)
-];
-
-export default function App() {
-  const [iniciado, setIniciado] = useState(false);
-  const [etapa, setEtapa] = useState(0);
-  const [respostaSelecionada, setRespostaSelecionada] = useState(null);
-  const [respostas, setRespostas] = useState([]);
-
-  const total = frases.length;
-  const fraseAtual = frases[etapa];
-
-  function selecionarResposta(opcao) {
-    setRespostaSelecionada(opcao);
-  }
-
-  function confirmarResposta() {
-    if (!respostaSelecionada) return;
-    setRespostas([...respostas, respostaSelecionada]);
-    setRespostaSelecionada(null);
-    setEtapa(etapa + 1);
-  }
-
-  function calcularViesMaisFrequente() {
-    const contagem = {};
-    respostas.forEach((r) => {
-      contagem[r.vies] = (contagem[r.vies] || 0) + 1;
-    });
-    let maisFrequente = null;
-    let maiorContagem = 0;
-    for (const [vies, count] of Object.entries(contagem)) {
-      if (count > maiorContagem) {
-        maisFrequente = vies;
-        maiorContagem = count;
-      }
-    }
-    return maisFrequente;
-  }
-
-  if (!iniciado) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mb-4">Neurotrading Intensive</h1>
-        <p className="text-lg mb-6">Treinamento de Leitura Preditiva para Traders</p>
-        <button
-          className="bg-blue-600 text-white px-6 py-3 rounded text-lg"
-          onClick={() => setIniciado(true)}
-        >
-          Começar
-        </button>
-      </div>
-    );
-  }
-
-  if (etapa >= total) {
-    const viesMaisFrequente = calcularViesMaisFrequente();
-    return (
-      <div className="min-h-screen bg-green-50 flex items-center justify-center">
-        <div className="bg-white p-6 rounded-xl shadow text-center">
-          <h2 className="text-2xl font-bold mb-4">Fim do Jogo</h2>
-          <p className="text-lg mb-2">Você completou o treino de leitura preditiva.</p>
-          <p className="text-lg font-semibold">Viés mais recorrente: {viesMaisFrequente}</p>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="bg-gray-100 p-6 rounded-xl shadow max-w-xl w-full">
-        <div className="mb-4">
-          <div className="text-sm mb-1">Frase {etapa + 1} de {total}</div>
-          <div className="h-2 bg-gray-300 rounded-full overflow-hidden">
-            <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${((etapa + 1) / total) * 100}%` }} />
-          </div>
-        </div>
-        <p className="text-lg mb-4">{fraseAtual.inicio}</p>
-        <div className="space-y-2">
-          {fraseAtual.opcoes.map((opcao, index) => (
-            <label key={index} className="block">
-              <input
-                type="radio"
-                name="resposta"
-                value={opcao.texto}
-                checked={respostaSelecionada === opcao}
-                onChange={() => selecionarResposta(opcao)}
-                className="mr-2"
-              />
-              {opcao.texto}
-            </label>
-          ))}
-        </div>
-        <button
-          onClick={confirmarResposta}
-          className="bg-green-600 text-white px-4 py-2 rounded mt-4"
-          disabled={!respostaSelecionada}
-        >
-          Confirmar
-        </button>
-      </div>
-    </div>
-  );
-}
-unded mt-4"
+          className="bg-green-600 text-white px-4 py-2 rounded mt-4 disabled:opacity-50"
           disabled={!respostaSelecionada}
         >
           Confirmar
