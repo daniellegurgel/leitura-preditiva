@@ -117,14 +117,32 @@ export default function App() {
           </table>
         </div>
 
-        <div className="bg-white p-4 rounded shadow w-full max-w-xl">
+        <div className="bg-white p-4 rounded shadow w-full max-w-4xl">
           <h3 className="text-xl font-bold mb-4">Distribuição de Vieses</h3>
-          <Bar data={{
-            labels,
-            datasets: [{ label: 'Ocorrências', data: dados, backgroundColor: [
-              '#3b82f6','#ef4444','#f59e0b','#10b981','#8b5cf6','#ec4899','#14b8a6','#eab308'
-            ] }]
-          }} />
+          <Plot
+            data={[
+              {
+                type: 'bar',
+                x: dados,
+                y: labels,
+                orientation: 'h',
+                marker: {
+                  color: [
+                    '#3b82f6', '#ef4444', '#f59e0b', '#10b981',
+                    '#8b5cf6', '#ec4899', '#14b8a6', '#eab308'
+                  ]
+                }
+              }
+            ]}
+            layout={{
+              width: 700,
+              height: 400,
+              title: 'Frequência dos Vieses nas Respostas',
+              xaxis: { title: 'Número de vezes escolhido' },
+              yaxis: { title: 'Viés', automargin: true },
+              margin: { l: 150 }
+            }}
+          />
         </div>
 
         <footer className="mt-10 text-sm text-gray-500">© 2025 Sincroni Treinamento e Consultoria Ltda — CNPJ 08.847.427/0001-31</footer>
