@@ -1,8 +1,6 @@
-// App completo com 25 frases, gráfico final de vieses, tabela de resumo, animação de confetes e rodapé de copyright
-
 import { useState } from 'react';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip as ChartJSTooltip, Legend } from 'chart.js'; // Renomeie Tooltip aqui
+import { Bar as ChartJSBar } from 'react-chartjs-2'; // Renomeie Bar aqui
 import confetti from 'canvas-confetti';
 import Plot from 'react-plotly.js';
 import {
@@ -10,7 +8,7 @@ import {
   Tooltip, ResponsiveContainer, LabelList
 } from 'recharts';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+ChartJS.register(BarElement, CategoryScale, LinearScale, ChartJSTooltip, Legend); // Atualize o registro para usar o novo nome ChartJSTooltip
 
 const frases = [
   { id: 1, inicio: "O candle de reversão apareceu exatamente onde ele...", opcoes: [ { texto: "entrou", vies: "Viés de Confirmação" }, { texto: "estava torcendo", vies: "Otimismo Ilusório" }, { texto: "hesitou", vies: "Aversão à Perda" }, { texto: "pulou a entrada de ontem", vies: "Viés de Recência" } ] },
