@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import confetti from 'canvas-confetti';
+import Plot from 'react-plotly.js';
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -120,7 +121,9 @@ export default function App() {
           <h3 className="text-xl font-bold mb-4">Distribuição de Vieses</h3>
           <Bar data={{
             labels,
-            datasets: [{ label: 'Ocorrências', data: dados, backgroundColor: 'rgba(34, 197, 94, 0.6)' }]
+            datasets: [{ label: 'Ocorrências', data: dados, backgroundColor: [
+              '#3b82f6','#ef4444','#f59e0b','#10b981','#8b5cf6','#ec4899','#14b8a6','#eab308'
+            ] }]
           }} />
         </div>
 
