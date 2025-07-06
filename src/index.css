@@ -8,10 +8,5 @@ html, body, #root {
 
 body { /* Aplica o gradiente diretamente ao body */
   font-family: system-ui, sans-serif;
-  background: linear-gradient(to bottom right, #e0f2fe, #e0ffe0); /* blue-100 para green-100 */
+  background: linear-gradient(to bottom right, #c7d2fe, #e9d5ff); /* Novo gradiente: indigo-200 para purple-200 */
 }
-
-/* Remova a definição da classe app-background-gradient, pois não será mais necessária */
-/* .app-background-gradient {
-  background: linear-gradient(to bottom right, #e0f2fe, #e0ffe0);
-} */
