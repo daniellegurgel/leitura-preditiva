@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip as ChartJSTooltip, Legend } from 'chart.js'; // Renomeie Tooltip aqui
-import { Bar as ChartJSBar } from 'react-chartjs-2'; // Renomeie Bar aqui
+import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip as ChartJSTooltip, Legend } from 'chart.js';
+import { Bar as ChartJSBar } from 'react-chartjs-2';
 import confetti from 'canvas-confetti';
-import Plot from 'react-plotly.js';
+import Plot from 'react-plotly.js'; // Importe Plotly se estiver usando, mesmo que não esteja visível na versão final do seu código.
 import {
   Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid,
   Tooltip, ResponsiveContainer, LabelList
 } from 'recharts';
 
-ChartJS.register(BarElement, CategoryScale, LinearScale, ChartJSTooltip, Legend); // Atualize o registro para usar o novo nome ChartJSTooltip
+ChartJS.register(BarElement, CategoryScale, LinearScale, ChartJSTooltip, Legend);
 
 const frases = [
   { id: 1, inicio: "O candle de reversão apareceu exatamente onde ele...", opcoes: [ { texto: "entrou", vies: "Viés de Confirmação" }, { texto: "estava torcendo", vies: "Otimismo Ilusório" }, { texto: "hesitou", vies: "Aversão à Perda" }, { texto: "pulou a entrada de ontem", vies: "Viés de Recência" } ] },
@@ -83,10 +83,10 @@ export default function App() {
 
   if (!iniciado) {
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mb-4">Neurotrading Intensive</h1>
-        <p className="text-lg mb-6">Treinamento de Leitura Preditiva para Traders</p>
-        <button className="bg-blue-600 text-white px-6 py-3 rounded text-lg" onClick={() => setIniciado(true)}>
+      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-center">Neurotrading Intensive</h1>
+        <p className="text-base sm:text-lg mb-6 text-center">Teste de Leitura Preditiva para Traders</p>
+        <button className="bg-blue-600 text-white px-6 py-3 rounded text-lg hover:bg-blue-700 transition duration-300" onClick={() => setIniciado(true)}>
           Começar
         </button>
       </div>
@@ -103,70 +103,91 @@ export default function App() {
     ];
 
     return (
-      <div className="min-h-screen bg-green-50 p-8 flex flex-col items-center">
-        <div className="bg-white p-6 rounded-xl shadow text-center mb-6">
-          <h2 className="text-2xl font-bold mb-4 text-green-800">Fim do Teste</h2>
-          <p className="text-lg mb-2">Você completou o treino de leitura preditiva.</p>
-          <p className="text-lg font-semibold">Viés mais recorrente: <span className="text-green-700">{viesMaisFrequente}</span></p>
+      <div className="min-h-screen bg-green-50 p-4 sm:p-6 md:p-8 flex flex-col items-center">
+        <div className="bg-white p-6 rounded-xl shadow text-center mb-6 max-w-full sm:max-w-xl">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 text-green-800">Fim do Teste</h2>
+          <p className="text-base sm:text-lg mb-2">Você completou o teste de leitura preditiva.</p>
+          <p className="text-base sm:text-lg font-semibold">Viés mais recorrente: <span className="text-green-700">{viesMaisFrequente}</span></p>
         </div>
 
-        <div className="bg-white p-4 rounded shadow max-w-3xl w-full mb-8">
-          <h3 className="text-xl font-bold mb-2">Resumo das Respostas</h3>
-          <table className="w-full text-left text-sm">
-            <thead><tr><th className="py-2">Frase</th><th className="py-2">Viés Escolhido</th></tr></thead>
-            <tbody>
-              {respostas.map((r, i) => (
-                <tr key={i} className="border-t">
-                  <td className="py-1">{frases[i].inicio}</td>
-                  <td className="py-1 font-medium">{r.vies}</td>
+        {/* CONTAINER PRINCIPAL PARA TABELA E GRÁFICO:
+            - flex-col: empilha no celular (padrão)
+            - lg:flex-row: lado a lado em telas grandes (desktop)
+            - lg:space-x-8: espaçamento horizontal entre eles no desktop
+            - items-start lg:items-stretch: alinha os itens no topo ou estica
+        */}
+        <div className="flex flex-col lg:flex-row lg:space-x-8 max-w-6xl w-full">
+          {/* Seção Resumo das Respostas */}
+          <div className="bg-white p-4 rounded shadow w-full lg:w-1/2 mb-8 lg:mb-0 overflow-x-auto">
+            <h3 className="text-xl font-bold mb-2">Resumo das Respostas</h3>
+            <table className="w-full text-left text-xs sm:text-sm">
+              <thead>
+                <tr>
+                  <th className="py-2 px-1 sm:px-2">Frase</th>
+                  <th className="py-2 px-1 sm:px-2 whitespace-nowrap">Viés Identificado</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="bg-white p-4 rounded shadow w-full max-w-4xl">
-          <h3 className="text-xl font-bold mb-4 text-center">Frequência dos Vieses nas Respostas</h3>
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart layout="vertical" data={data} margin={{ top: 10, right: 30, left: 100, bottom: 20 }}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis type="number" label={{ value: 'Número de vezes escolhido', position: 'insideBottom', offset: -5 }} />
-              <YAxis dataKey="vies" type="category" width={200} />
-              <Tooltip />
-              <Bar dataKey="valor">
-                {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+              </thead>
+              <tbody>
+                {respostas.map((r, i) => (
+                  <tr key={i} className="border-t">
+                    <td className="py-1 px-1 sm:px-2">{frases[i].inicio}</td>
+                    <td className="py-1 px-1 sm:px-2 font-medium whitespace-nowrap">{r.vies}</td>
+                  </tr>
                 ))}
-                <LabelList dataKey="valor" position="right" />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Seção Frequência dos Vieses nas Respostas (Gráfico) */}
+          <div className="bg-white p-4 rounded shadow w-full lg:w-1/2">
+            <h3 className="text-xl font-bold mb-4 text-center">Frequência dos Vieses nas Respostas</h3>
+            <ResponsiveContainer width="100%" height={400}>
+              <BarChart
+                layout="vertical"
+                data={data}
+                margin={{ top: 10, right: 30, left: 20, bottom: 20 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis type="number" label={{ value: 'Número de vezes escolhido', position: 'insideBottom', offset: -5 }} />
+                <YAxis dataKey="vies" type="category" width={80} tick={{ fontSize: 10 }} />
+                <Tooltip />
+                <Bar dataKey="valor">
+                  {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                  ))}
+                  <LabelList dataKey="valor" position="right" />
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
-        <footer className="mt-10 text-sm text-gray-500">© 2025 Sincroni Treinamento e Consultoria Ltda — CNPJ 08.847.427/0001-31</footer>
+        <footer className="mt-10 text-xs sm:text-sm text-gray-500 text-center px-4">
+          © {new Date().getFullYear()} Sincroni Treinamento e Consultoria Ltda — CNPJ 08.847.427/0001-31
+        </footer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="bg-gray-100 p-6 rounded-xl shadow max-w-xl w-full">
+    <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="bg-gray-100 p-6 rounded-xl shadow max-w-md sm:max-w-xl w-full">
         <div className="mb-4">
           <div className="text-sm mb-1">Frase {etapa + 1} de {total}</div>
           <div className="h-2 bg-gray-300 rounded-full overflow-hidden">
             <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${((etapa + 1) / total) * 100}%` }} />
           </div>
         </div>
-        <p className="text-lg mb-4">{fraseAtual.inicio}</p>
+        <p className="text-lg sm:text-xl mb-4">{fraseAtual.inicio}</p>
         <div className="space-y-2">
           {fraseAtual.opcoes.map((opcao, index) => (
-            <label key={index} className="block">
+            <label key={index} className="block text-base sm:text-lg">
               <input type="radio" name="resposta" value={opcao.texto} checked={respostaSelecionada === opcao} onChange={() => selecionarResposta(opcao)} className="mr-2" />
               {opcao.texto}
             </label>
           ))}
         </div>
-        <button onClick={confirmarResposta} className="bg-green-600 text-white px-4 py-2 rounded mt-4" disabled={!respostaSelecionada}>
+        <button onClick={confirmarResposta} className="bg-green-600 text-white px-4 py-2 rounded mt-4 hover:bg-green-700 transition duration-300" disabled={!respostaSelecionada}>
           Confirmar
         </button>
       </div>
