@@ -5,7 +5,8 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
-      external: ['recharts'] // Isso diz ao Rollup para não incluir 'recharts' no bundle
+      // Remova a linha abaixo
+      // external: ['recharts']
     }
   }
 });
