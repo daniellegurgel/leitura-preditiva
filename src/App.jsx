@@ -1,12 +1,11 @@
 // App completo com 25 frases, gráfico final de vieses, tabela de resumo, animação de confetes e rodapé de copyright
 
 import { useState } from 'react';
-import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
 import confetti from 'canvas-confetti';
-import Plot from 'react-plotly.js';
-
-ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+import {
+  Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid,
+  Tooltip, ResponsiveContainer, LabelList
+} from 'recharts';
 
 const frases = [
   { id: 1, inicio: "O candle de reversão apareceu exatamente onde ele...", opcoes: [ { texto: "entrou", vies: "Viés de Confirmação" }, { texto: "estava torcendo", vies: "Otimismo Ilusório" }, { texto: "hesitou", vies: "Aversão à Perda" }, { texto: "pulou a entrada de ontem", vies: "Viés de Recência" } ] },
@@ -94,8 +93,11 @@ export default function App() {
   if (etapa >= total) {
     const contagem = calcularContagemVieses();
     const viesMaisFrequente = calcularViesMaisFrequente();
-    const labels = Object.keys(contagem);
-    const dados = Object.values(contagem);
+    const data = Object.entries(contagem).map(([vies, valor]) => ({ vies, valor }));
+    const cores = [
+      '#5e3c99', '#1f78b4', '#33a02c', '#b2df8a', '#a6d854',
+      '#8dd3c7', '#fb8072', '#80b1d3', '#fdb462', '#fccde5'
+    ];
 
     return (
       <div className="min-h-screen bg-green-50 p-8 flex flex-col items-center">
@@ -111,38 +113,31 @@ export default function App() {
             <thead><tr><th className="py-2">Frase</th><th className="py-2">Viés Escolhido</th></tr></thead>
             <tbody>
               {respostas.map((r, i) => (
-                <tr key={i} className="border-t"><td className="py-1">{frases[i].inicio}</td><td className="py-1 font-medium">{r.vies}</td></tr>
+                <tr key={i} className="border-t">
+                  <td className="py-1">{frases[i].inicio}</td>
+                  <td className="py-1 font-medium">{r.vies}</td>
+                </tr>
               ))}
             </tbody>
           </table>
         </div>
 
         <div className="bg-white p-4 rounded shadow w-full max-w-4xl">
-          <h3 className="text-xl font-bold mb-4">Distribuição de Vieses</h3>
-          <Plot
-            data={[
-              {
-                type: 'bar',
-                x: dados,
-                y: labels,
-                orientation: 'h',
-                marker: {
-                  color: [
-                    '#3b82f6', '#ef4444', '#f59e0b', '#10b981',
-                    '#8b5cf6', '#ec4899', '#14b8a6', '#eab308'
-                  ]
-                }
-              }
-            ]}
-            layout={{
-              width: 700,
-              height: 400,
-              title: 'Frequência dos Vieses nas Respostas',
-              xaxis: { title: 'Número de vezes escolhido' },
-              yaxis: { title: 'Viés', automargin: true },
-              margin: { l: 150 }
-            }}
-          />
+          <h3 className="text-xl font-bold mb-4 text-center">Frequência dos Vieses nas Respostas</h3>
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart layout="vertical" data={data} margin={{ top: 10, right: 30, left: 100, bottom: 20 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="number" label={{ value: 'Número de vezes escolhido', position: 'insideBottom', offset: -5 }} />
+              <YAxis dataKey="vies" type="category" width={200} />
+              <Tooltip />
+              <Bar dataKey="valor">
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={cores[index % cores.length]} />
+                ))}
+                <LabelList dataKey="valor" position="right" />
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         <footer className="mt-10 text-sm text-gray-500">© 2025 Sincroni Treinamento e Consultoria Ltda — CNPJ 08.847.427/0001-31</footer>
