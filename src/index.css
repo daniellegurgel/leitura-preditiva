@@ -5,3 +5,8 @@
 body {
   font-family: system-ui, sans-serif;
 }
+
+/* Classe de gradiente de fundo personalizada */
+.app-background-gradient {
+  background: linear-gradient(to bottom right, #e0f2fe, #e0ffe0); /* blue-100 para green-100 */
+}
