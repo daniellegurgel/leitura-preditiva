@@ -13,10 +13,10 @@ ChartJS.register(BarElement, CategoryScale, LinearScale, ChartJSTooltip, Legend)
 const frases = [
   { id: 1, inicio: "O candle de reversão apareceu exatamente onde ele...", opcoes: [ { texto: "entrou", vies: "Viés de Confirmação" }, { texto: "estava torcendo", vies: "Otimismo Ilusório" }, { texto: "hesitou", vies: "Aversão à Perda" }, { texto: "pulou a entrada de ontem", vies: "Viés de Recência" } ] },
   { id: 2, inicio: "Mesmo com o preço contra, ele não saiu da operação porque...", opcoes: [ { texto: "já tinha perdido muito", vies: "Aversão à Perda" }, { texto: "acreditava que ia voltar", vies: "Viés de Confirmação" }, { texto: "não quis perder a chance", vies: "FOMO" }, { texto: "ontem aconteceu igual e voltou", vies: "Viés de Recência" } ] },
-  { id: 3, inicio: "O mercado rompeu o topo anterior e ele pensou...", opcoes: [ { texto: "agora vai disparar!", vies: "Otimismo Ilusório" }, { texto: "já vi isso antes", vies: "Viés de Retrospectiva" }, { texto: "não posso ficar de fora", vies: "FOMO" }, { texto: "eu sabia", vies: "Excesso de Confiança" } ] },
-  { id: 4, inicio: "Mesmo com sinais contrários, ele manteve a operação porque...", opcoes: [ { texto: "queria provar que estava certo", vies: "Viés de Confirmação" }, { texto: "já estava no prejuízo", vies: "Aversão à Perda" }, { texto: "achava que tinha mais chance de dar certo", vies: "Otimismo Ilusório" }, { texto: "fez isso no dia anterior e funcionou", vies: "Viés de Recência" } ] },
+  { id: 3, inicio: "O mercado rompeu o topo anterior e ele pensou...", opcoes: [ { texto: "agora vai!", vies: "Otimismo Ilusório" }, { texto: "já vi isso antes", vies: "Viés de Retrospectiva" }, { texto: "não posso ficar de fora", vies: "FOMO" }, { texto: "eu sabia", vies: "Excesso de Confiança" } ] },
+  { id: 4, inicio: "Mesmo com sinais contrários, ele manteve a operação porque...", opcoes: [ { texto: "tinha certeza que estava certo", vies: "Viés de Confirmação" }, { texto: "não aceitou realizar o prejuizo", vies: "Aversão à Perda" }, { texto: "achava que tinha mais chance de dar certo", vies: "Otimismo Ilusório" }, { texto: "fez isso no dia anterior e funcionou", vies: "Viés de Recência" } ] },
   { id: 5, inicio: "Ele decidiu encerrar a operação quando...", opcoes: [ { texto: "chegou no valor que ele tinha em mente", vies: "Efeito de Ancoragem" }, { texto: "lembrou da última vez que perdeu tudo", vies: "Viés de Retrospectiva" }, { texto: "a maioria no grupo também saiu", vies: "FOMO" }, { texto: "o medo de entregar o lucro bateu", vies: "Aversão à Perda" } ] },
-  { id: 6, inicio: "Ele aumentou a posição porque...", opcoes: [ { texto: "já tinha ido bem antes com isso", vies: "Viés de Retrospectiva" }, { texto: "acreditava ainda mais no trade", vies: "Viés de Confirmação" }, { texto: "tinha certeza que subiria", vies: "Excesso de Confiança" }, { texto: "não queria perder a alta", vies: "FOMO" } ] },
+  { id: 6, inicio: "Ele aumentou a posição porque...", opcoes: [ { texto: "já tinha dado certo antes", vies: "Viés de Retrospectiva" }, { texto: "acreditava ainda mais no trade", vies: "Viés de Confirmação" }, { texto: "tinha certeza que subiria", vies: "Excesso de Confiança" }, { texto: "não queria perder a alta", vies: "FOMO" } ] },
   { id: 7, inicio: "Na hora de montar o stop, ele...", opcoes: [ { texto: "usou o preço anterior como base", vies: "Efeito de Ancoragem" }, { texto: "lembrou do último stop que tomou", vies: "Viés de Retrospectiva" }, { texto: "ajustou para ficar mais confortável", vies: "Aversão à Perda" }, { texto: "deixou sem porque confiava muito", vies: "Excesso de Confiança" } ] },
   { id: 8, inicio: "Ele ficou em dúvida sobre entrar porque...", opcoes: [ { texto: "viu alguém no grupo discordar", vies: "FOMO" }, { texto: "tinha dado errado semana passada", vies: "Viés de Recência" }, { texto: "não queria errar de novo", vies: "Aversão à Perda" }, { texto: "sentiu que estava exagerando", vies: "Viés de Confirmação" } ] },
   { id: 9, inicio: "Após um bom lucro, ele...", opcoes: [ { texto: "aumentou a mão confiante", vies: "Excesso de Confiança" }, { texto: "entrou de novo para não ficar de fora", vies: "FOMO" }, { texto: "evitou operar para não devolver", vies: "Aversão à Perda" }, { texto: "repetiu a entrada anterior", vies: "Viés de Recência" } ] },
@@ -81,11 +81,12 @@ export default function App() {
     return maisFrequente;
   }
 
+  // A tela inicial agora tem o gradiente da classe CSS personalizada
   if (!iniciado) {
     return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4"> {/* Adicionado p-4 para padding em telas pequenas */}
-        <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-center">Neurotrading Intensive</h1> {/* Ajustado text-3xl para telas pequenas */}
-        <p className="text-base sm:text-lg mb-6 text-center">Treinamento de Leitura Preditiva para Traders</p> {/* Ajustado text-base */}
+      <div className="min-h-screen flex flex-col items-center justify-center p-4"> {/* Removido app-background-gradient aqui */}
+        <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-center">Neurotrading Intensive</h1>
+        <p className="text-base sm:text-lg mb-6 text-center">Teste de Leitura Preditiva para Traders</p>
         <button className="bg-blue-600 text-white px-6 py-3 rounded text-lg hover:bg-blue-700 transition duration-300" onClick={() => setIniciado(true)}>
           Começar
         </button>
@@ -93,6 +94,7 @@ export default function App() {
     );
   }
 
+  // A tela de resultados agora tem o gradiente da classe CSS personalizada
   if (etapa >= total) {
     const contagem = calcularContagemVieses();
     const viesMaisFrequente = calcularViesMaisFrequente();
@@ -103,53 +105,45 @@ export default function App() {
     ];
 
     return (
-      <div className="min-h-screen bg-green-50 p-4 sm:p-6 md:p-8 flex flex-col items-center"> {/* Aumentado padding responsivo */}
-        <div className="bg-white p-6 rounded-xl shadow text-center mb-6 max-w-full sm:max-w-xl"> {/* Ajustado max-w */}
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 text-green-800">Fim do Teste</h2> {/* Ajustado tamanho de texto */}
-          <p className="text-base sm:text-lg mb-2">Você completou o treino de leitura preditiva.</p> {/* Ajustado tamanho de texto */}
+      <div className="min-h-screen p-4 sm:p-6 md:p-8 flex flex-col items-center"> {/* Removido app-background-gradient aqui */}
+        <div className="bg-white p-6 rounded-xl shadow text-center mb-6 max-w-full sm:max-w-xl">
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 text-green-800">Fim do Teste</h2>
+          <p className="text-base sm:text-lg mb-2">Você completou o teste de leitura preditiva.</p>
           <p className="text-base sm:text-lg font-semibold">Viés mais recorrente: <span className="text-green-700">{viesMaisFrequente}</span></p>
         </div>
 
-        {/* CONTAINER PRINCIPAL PARA TABELA E GRÁFICO:
-            - flex-col: empilha no celular (padrão)
-            - lg:flex-row: lado a lado em telas grandes (desktop)
-            - lg:space-x-8: espaçamento horizontal entre eles no desktop
-            - items-start lg:items-stretch: alinha os itens no topo ou estica
-        */}
         <div className="flex flex-col lg:flex-row lg:space-x-8 max-w-6xl w-full">
-          {/* Seção Resumo das Respostas */}
-          <div className="bg-white p-4 rounded shadow w-full lg:w-1/2 mb-8 lg:mb-0 overflow-x-auto"> {/* Adicionado overflow-x-auto para tabelas em celular */}
+          <div className="bg-white p-4 rounded shadow w-full lg:w-1/2 mb-8 lg:mb-0 overflow-x-auto">
             <h3 className="text-xl font-bold mb-2">Resumo das Respostas</h3>
-            <table className="w-full text-left text-xs sm:text-sm"> {/* Ajustado tamanho de texto da tabela */}
+            <table className="w-full text-left text-xs sm:text-sm">
               <thead>
                 <tr>
-                  <th className="py-2 px-1 sm:px-2">Frase</th> {/* Adicionado padding px */}
-                  <th className="py-2 px-1 sm:px-2 whitespace-nowrap">Viés Escolhido</th> {/* Adicionado whitespace-nowrap */}
+                  <th className="py-2 px-1 sm:px-2">Frase</th>
+                  <th className="py-2 px-1 sm:px-2 whitespace-nowrap">Viés Identificado</th>
                 </tr>
               </thead>
               <tbody>
                 {respostas.map((r, i) => (
                   <tr key={i} className="border-t">
-                    <td className="py-1 px-1 sm:px-2">{frases[i].inicio}</td> {/* Adicionado padding px */}
-                    <td className="py-1 px-1 sm:px-2 font-medium whitespace-nowrap">{r.vies}</td> {/* Adicionado whitespace-nowrap */}
+                    <td className="py-1 px-1 sm:px-2">{frases[i].inicio}</td>
+                    <td className="py-1 px-1 sm:px-2 font-medium whitespace-nowrap">{r.vies}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          {/* Seção Frequência dos Vieses nas Respostas (Gráfico) */}
           <div className="bg-white p-4 rounded shadow w-full lg:w-1/2">
             <h3 className="text-xl font-bold mb-4 text-center">Frequência dos Vieses nas Respostas</h3>
             <ResponsiveContainer width="100%" height={400}>
               <BarChart
                 layout="vertical"
                 data={data}
-                margin={{ top: 10, right: 30, left: 20, bottom: 20 }} // Reduzido 'left' de 100 para 20
+                margin={{ top: 10, right: 30, left: 20, bottom: 20 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" label={{ value: 'Número de vezes escolhido', position: 'insideBottom', offset: -5 }} />
-                <YAxis dataKey="vies" type="category" width={80} tick={{ fontSize: 10 }} /> {/* Reduzido width de 200 para 80 e diminuido fonte */}
+                <YAxis dataKey="vies" type="category" width={80} tick={{ fontSize: 10 }} />
                 <Tooltip />
                 <Bar dataKey="valor">
                   {data.map((entry, index) => (
@@ -162,7 +156,7 @@ export default function App() {
           </div>
         </div>
 
-        <footer className="mt-10 text-xs sm:text-sm text-gray-500 text-center px-4"> {/* Ajustado tamanho e centralizado */}
+        <footer className="mt-10 text-xs sm:text-sm text-gray-500 text-center px-4">
           © {new Date().getFullYear()} Sincroni Treinamento e Consultoria Ltda — CNPJ 08.847.427/0001-31
         </footer>
       </div>
@@ -170,18 +164,18 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-4"> {/* Adicionado p-4 */}
-      <div className="bg-gray-100 p-6 rounded-xl shadow max-w-md sm:max-w-xl w-full"> {/* Ajustado max-w */}
+    <div className="min-h-screen flex items-center justify-center p-4"> {/* Removido app-background-gradient aqui */}
+      <div className="bg-gray-100 p-6 rounded-xl shadow max-w-md sm:max-w-xl w-full">
         <div className="mb-4">
           <div className="text-sm mb-1">Frase {etapa + 1} de {total}</div>
           <div className="h-2 bg-gray-300 rounded-full overflow-hidden">
             <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: `${((etapa + 1) / total) * 100}%` }} />
           </div>
         </div>
-        <p className="text-lg sm:text-xl mb-4">{fraseAtual.inicio}</p> {/* Ajustado tamanho de texto */}
+        <p className="text-lg sm:text-xl mb-4">{fraseAtual.inicio}</p>
         <div className="space-y-2">
           {fraseAtual.opcoes.map((opcao, index) => (
-            <label key={index} className="block text-base sm:text-lg"> {/* Ajustado tamanho de texto */}
+            <label key={index} className="block text-base sm:text-lg">
               <input type="radio" name="resposta" value={opcao.texto} checked={respostaSelecionada === opcao} onChange={() => selecionarResposta(opcao)} className="mr-2" />
               {opcao.texto}
             </label>
